@@ -11,16 +11,10 @@ terraform {
   }
 }
 
-# Path to config file for the Kubernetes provider as variable
-variable "kubeconfig" {
-  type = string
-  # Load the kubeconfig from your home directory (default location for Docker Desktop Kubernetes)
-  default = "~/.kube/config"
-}
-
 # Kubernetes provider configuration
 provider "kubernetes" {
-  config_path = var.kubeconfig
+  config_path = "~/.kube/config"
+  config_context = "docker-desktop"
 }
 
 # Helm provider configuration
@@ -28,7 +22,7 @@ provider "helm" {
   # Local Kubernetes cluster from Docker Desktop
   kubernetes {
     # Load the kubeconfig from your home directory
-    config_path = var.kubeconfig
+    config_path = "~/.kube/config"
   }
 }
 # Install cert-manager helm chart using terraform
